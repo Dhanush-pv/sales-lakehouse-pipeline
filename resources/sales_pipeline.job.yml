@@ -1,0 +1,38 @@
+resources:
+  jobs:
+    sales_pipeline_job:
+      name: sales_pipeline_job
+      tasks:
+        - task_key: incremental_load
+          notebook_task:
+            notebook_path: ../src/02_incremental_load.ipynb
+        - task_key: dq_bronze_checks
+          depends_on:
+            - task_key: incremental_load
+          notebook_task:
+            notebook_path: ../src/03_dq_bronze_checks.ipynb
+        - task_key: bronze_to_silver
+          depends_on:
+            - task_key: dq_bronze_checks
+          notebook_task:
+            notebook_path: ../src/04_bronze_to_silver.ipynb
+        - task_key: dq_silver_checks
+          depends_on:
+            - task_key: bronze_to_silver
+          notebook_task:
+            notebook_path: ../src/05_dq_silver_checks.ipynb
+        - task_key: silver_to_gold
+          depends_on:
+            - task_key: dq_silver_checks
+          notebook_task:
+            notebook_path: ../src/06_silver_to_gold.ipynb
+        - task_key: update_metadata
+          depends_on:
+            - task_key: silver_to_gold
+          notebook_task:
+            notebook_path: ../src/07_update_metadata.ipynb
+      # Default run_if is ALL_SUCCESS: a failed data-quality task stops every
+      # downstream task, so the watermark only moves after a clean run.
+      max_concurrent_runs: 1
+      queue:
+        enabled: true

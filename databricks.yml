@@ -1,0 +1,19 @@
+# Databricks Asset Bundle for the sales lakehouse pipeline.
+# Docs: https://docs.databricks.com/dev-tools/bundles/index.html
+bundle:
+  name: sales_lakehouse_pipeline
+  uuid: a09b6b81-48c7-468f-8aa7-d8fe34a2e005
+
+include:
+  - resources/*.yml
+
+# The workspace host is NOT stored in this file. Set it with the DATABRICKS_HOST
+# environment variable (CI) or with `databricks configure` (local).
+targets:
+  dev:
+    mode: development
+    default: true
+  prod:
+    mode: production
+    workspace:
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}

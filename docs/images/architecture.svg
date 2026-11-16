@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="900" height="520" fill="#ffffff"/>
+  <text x="450" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#0f172a">Sales Lakehouse Pipeline</text>
+
+  <rect x="40" y="70" width="190" height="70" rx="8" fill="#e2e8f0" stroke="#475569"/>
+  <text x="135" y="100" text-anchor="middle" font-size="14" font-weight="bold">PostgreSQL (Neon)</text>
+  <text x="135" y="120" text-anchor="middle" font-size="12">source table: sales</text>
+
+  <rect x="300" y="70" width="190" height="70" rx="8" fill="#dbeafe" stroke="#1d4ed8"/>
+  <text x="395" y="100" text-anchor="middle" font-size="14" font-weight="bold">02 Incremental load</text>
+  <text x="395" y="120" text-anchor="middle" font-size="12">updated_at &gt; watermark (JDBC)</text>
+
+  <rect x="560" y="60" width="140" height="40" rx="8" fill="#fde68a" stroke="#b45309"/>
+  <text x="630" y="85" text-anchor="middle" font-size="13" font-weight="bold">Bronze (append)</text>
+  <rect x="560" y="110" width="140" height="40" rx="8" fill="#f1f5f9" stroke="#475569"/>
+  <text x="630" y="135" text-anchor="middle" font-size="13">Staging (batch)</text>
+
+  <rect x="300" y="190" width="190" height="56" rx="8" fill="#fecaca" stroke="#b91c1c"/>
+  <text x="395" y="214" text-anchor="middle" font-size="14" font-weight="bold">03 DQ checks</text>
+  <text x="395" y="233" text-anchor="middle" font-size="12">rows, nulls (fails workflow)</text>
+
+  <rect x="300" y="290" width="190" height="56" rx="8" fill="#dbeafe" stroke="#1d4ed8"/>
+  <text x="395" y="314" text-anchor="middle" font-size="14" font-weight="bold">04 MERGE</text>
+  <text x="395" y="333" text-anchor="middle" font-size="12">latest row per customer_id</text>
+  <rect x="560" y="298" width="140" height="40" rx="8" fill="#e5e7eb" stroke="#374151"/>
+  <text x="630" y="323" text-anchor="middle" font-size="13" font-weight="bold">Silver (current)</text>
+
+  <rect x="300" y="390" width="190" height="56" rx="8" fill="#fecaca" stroke="#b91c1c"/>
+  <text x="395" y="414" text-anchor="middle" font-size="14" font-weight="bold">05 DQ checks</text>
+  <text x="395" y="433" text-anchor="middle" font-size="12">nulls, unique key, row count</text>
+
+  <rect x="40" y="290" width="190" height="56" rx="8" fill="#dbeafe" stroke="#1d4ed8"/>
+  <text x="135" y="314" text-anchor="middle" font-size="14" font-weight="bold">06 Silver to Gold</text>
+  <text x="135" y="333" text-anchor="middle" font-size="12">sales per region + checks</text>
+  <rect x="40" y="390" width="190" height="56" rx="8" fill="#fef3c7" stroke="#a16207"/>
+  <text x="135" y="414" text-anchor="middle" font-size="14" font-weight="bold">Gold: sales_summary</text>
+  <text x="135" y="433" text-anchor="middle" font-size="12">reporting / analytics</text>
+
+  <rect x="40" y="190" width="190" height="56" rx="8" fill="#dcfce7" stroke="#15803d"/>
+  <text x="135" y="214" text-anchor="middle" font-size="14" font-weight="bold">07 Update watermark</text>
+  <text x="135" y="233" text-anchor="middle" font-size="12">only after all checks pass</text>
+
+  <g stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)">
+    <path d="M230 105H298"/>
+    <path d="M490 95H558"/>
+    <path d="M490 125H558" stroke-dasharray="4 3"/>
+    <path d="M395 140V188"/>
+    <path d="M395 246V288"/>
+    <path d="M490 318H558"/>
+    <path d="M395 346V388"/>
+    <path d="M298 418H232" />
+    <path d="M135 390V348"/>
+    <path d="M135 290V248"/>
+  </g>
+  <text x="450" y="490" text-anchor="middle" font-size="12" fill="#475569">Orchestrated by a Databricks Workflow, deployed with Databricks Asset Bundles and GitHub Actions</text>
+</svg>
