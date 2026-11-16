@@ -97,14 +97,6 @@ python -m pytest -q
 
 `ci.yml` lints and runs the unit tests on every pull request and push. `deploy.yml` runs the same tests on `main`, then validates and deploys the bundle to the `prod` target. Repository secrets required: `DATABRICKS_HOST`, `DATABRICKS_TOKEN`.
 
-## Screenshots
-
-Take these after your first run in your own workspace and save them in `docs/images/`, then link them here:
-
-- [ ] `workflow-success.png`: the job run with all six tasks green
-- [ ] `workflow-dq-failure.png`: a run stopped by a failed data-quality check
-- [ ] `github-actions-deploy.png`: a green GitHub Actions deploy
-
 ## Tech stack
 
 Azure Databricks, Delta Lake, Databricks Workflows, Databricks Asset Bundles, PySpark, SQL, PostgreSQL, GitHub Actions, pytest, ruff.
